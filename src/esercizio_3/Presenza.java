@@ -2,18 +2,18 @@ package esercizio_3;
 
 class Presenza {
 	private String nome;
-	private int giorni;
+	private int giorno;
 
-	public Presenza(String nome, int giorni) {
+	public Presenza(String nome, int giorno) {
 		this.nome = nome;
-		this.giorni = giorni;
+		this.giorno = giorno;
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public int getGiorni() {
-		return giorni;
+	public int getGiorno() {
+		return giorno;
 	}
 }

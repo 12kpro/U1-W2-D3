@@ -2,7 +2,6 @@ package esercizio_3;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -23,28 +22,29 @@ public class RegistroPresenze {
 	}
 
 	public void salvaSuDisco(File file) throws IOException {
-		List<String> stringRecords = new ArrayList<String>();
+
 		for (Entry<UUID, Presenza> p : presenze.entrySet()) {
-			Application.logger.info(p.getKey() + " = " + p.getValue());
-			stringRecords.add(p.getKey() + " = " + p.getValue());
-		}
-		try {
-			FileUtils.writeLines(file, stringRecords);
-		} catch (IOException e) {
-			e.printStackTrace();
+			Application.logger.info(p.getKey() + "," + p.getValue().getNome() + "," + p.getValue().getGiorno());
+			try {
+				FileUtils.writeStringToFile(file,
+						p.getKey() + "," + p.getValue().getNome() + "," + p.getValue().getGiorno(), "UTF-8", true);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
 
 	public void caricaDaDisco(File file) throws IOException {
+		presenze.clear();
 		List<String> readRecords = FileUtils.readLines(file, "UTF-8");
 		for (String line : readRecords) {
-//			String[] parts = line.split(",");
-//			String nome = parts[0];
-//			int giorni = Integer.parseInt(parts[1]);
-//			Presenza p = new Presenza(nome, giorni);
-//			getPresenze().add(p);
-			Application.logger.info("Totale: " + line);
+			String[] record = line.split(",");
+			UUID id = UUID.fromString(record[0]);
+			String nome = record[1];
+			int giorno = Integer.parseInt(record[2]);
+			Presenza p = new Presenza(nome, giorno);
+			presenze.put(id, p);
 		}
 	}
 

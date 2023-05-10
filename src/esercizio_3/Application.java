@@ -2,6 +2,8 @@ package esercizio_3;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +22,9 @@ public class Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-//		for (Presenza p : registro.getPresenze()) {
-//			System.out.println(p.getNome() + ": " + p.getGiorni());
-//		}
+		for (Entry<UUID, Presenza> p : registro.getPresenze().entrySet()) {
+			Application.logger.info(p.getKey() + "," + p.getValue().getNome() + "," + p.getValue().getGiorno());
+		}
 	}
 
 }
