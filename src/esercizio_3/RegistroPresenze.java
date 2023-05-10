@@ -2,6 +2,7 @@ package esercizio_3;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -26,8 +27,8 @@ public class RegistroPresenze {
 		for (Entry<UUID, Presenza> p : presenze.entrySet()) {
 			Application.logger.info(p.getKey() + "," + p.getValue().getNome() + "," + p.getValue().getGiorno());
 			try {
-				FileUtils.writeStringToFile(file,
-						p.getKey() + "," + p.getValue().getNome() + "," + p.getValue().getGiorno(), "UTF-8", true);
+				FileUtils.writeStringToFile(file, p.getKey() + "," + p.getValue().getNome() + ","
+						+ p.getValue().getGiorno() + System.lineSeparator(), "UTF-8", true);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -37,9 +38,14 @@ public class RegistroPresenze {
 
 	public void caricaDaDisco(File file) throws IOException {
 		presenze.clear();
-		List<String> readRecords = FileUtils.readLines(file, "UTF-8");
-		for (String line : readRecords) {
-			String[] record = line.split(",");
+		List<String> readRecords = new ArrayList<String>();
+		try {
+			readRecords = FileUtils.readLines(file, "UTF-8");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		for (String l : readRecords) {
+			String[] record = l.split(",");
 			UUID id = UUID.fromString(record[0]);
 			String nome = record[1];
 			int giorno = Integer.parseInt(record[2]);

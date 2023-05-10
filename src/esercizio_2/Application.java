@@ -24,6 +24,8 @@ public class Application {
 		int sum = 0;
 		for (Thread t : threads) {
 			t.start();
+		}
+		for (Thread t : threads) {
 			try {
 				t.join();
 			} catch (InterruptedException e) {
