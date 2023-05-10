@@ -1,0 +1,2 @@
+05dae896-7b91-4033-a1ec-c71c4938b883 = esercizio_3.Presenza@2b80d80f
+21c52837-44a3-4522-bb19-a9ac13034eab = esercizio_3.Presenza@5a01ccaa
